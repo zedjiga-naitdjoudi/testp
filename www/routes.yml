@@ -1,0 +1,27 @@
+/:
+  controller: Base
+  action: index
+
+/signup:
+  controller: Auth
+  action: signupForm
+
+/register:
+  controller: Auth
+  action: signup
+
+/login:
+  controller: Auth
+  action: loginForm
+
+/login-post:
+  controller: Auth
+  action: login
+
+/logout:
+  controller: Auth
+  action: logout
+
+/dashboard:
+  controller: Base
+  action: dashboard
