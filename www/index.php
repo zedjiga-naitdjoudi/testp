@@ -5,6 +5,9 @@ namespace App;
 use App\Core\Router;
 use App\Core\SessionManager;
 
+
+
+
 // 1. Autoloader
 spl_autoload_register(function ($class){
         $namespaceArray = [

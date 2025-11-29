@@ -20,3 +20,4 @@ CREATE TABLE IF NOT EXISTS users (
     -- Horodatage
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+

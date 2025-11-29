@@ -6,7 +6,6 @@ use App\Core\Render;
 use App\Core\SessionManager;
 use App\Service\AuthService;
 use App\Service\UserRepository;
-use App\Service\MailerService;
 
 class Auth
 {

@@ -22,6 +22,10 @@
   controller: Auth
   action: logout
 
+/forgot:
+controller: Auth
+action: logout
+
 /dashboard:
   controller: Base
   action: dashboard
