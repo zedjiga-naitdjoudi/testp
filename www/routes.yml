@@ -45,3 +45,27 @@
 /reset-password-post:
   controller: Auth
   action: reset
+
+/pages:
+  controller: "PageController"
+  action: "index"
+
+/create:
+  controller: "PageController"
+  action: "createForm"
+
+/create_post:
+  controller: "PageController"
+  action: "create"
+
+/edit:
+  controller: "PageController"
+  action: "editForm"
+
+/update:
+  controller: "PageController"
+  action: "update"
+
+/delete:
+  controller: "PageController"
+  action: "delete"

@@ -26,35 +26,48 @@ class Router
         }
     }
 
-    public function dispatch(): void
-    {
-        $uri = strtok($_SERVER['REQUEST_URI'], '?');
-        $uri = rtrim($uri, '/');
-        $uri = $uri === '' ? '/' : $uri;
+public function dispatch(): void
+{
+    $uri = strtok($_SERVER['REQUEST_URI'], '?');
+    $uri = rtrim($uri, '/');
+    $uri = $uri === '' ? '/' : $uri;
 
-        if (!isset($this->routes[$uri])) {
-            $this->handleError(404, "Route non trouvée pour l'URI: {$uri}");
+    // Vérifier si la route existe dans routes.yml
+    if (!isset($this->routes[$uri])) {
+
+        // Tentative de récupération via slug dynamique
+        $slug = ltrim($uri, '/');
+
+        $pageManager = new \App\Service\PageManager();
+        $page = $pageManager->findBySlug($slug);
+
+        if ($page) {
+            // Charger PageController
+            $controller = new \App\Controller\PageController();
+            $controller->view($slug);
             return;
         }
 
-        $route = $this->routes[$uri];
-        $controllerName = 'App\\Controller\\' . $route['controller'];
-        $actionName = $route['action'];
-
-        if (!class_exists($controllerName)) {
-            $this->handleError(500, "Contrôleur '{$controllerName}' introuvable.");
-            return;
-        }
-
-        $controller = new $controllerName();
-
-        if (!method_exists($controller, $actionName)) {
-            $this->handleError(500, "Action '{$actionName}' introuvable dans le contrôleur '{$controllerName}'.");
-            return;
-        }
-
-        $controller->$actionName();
+        // Aucune route et aucune page dynamique
+        $this->handleError(404, "Route non trouvée pour l'URI: {$uri}");
+        return;
     }
+
+    // Route trouvée dans routes.yml
+    $route = $this->routes[$uri];
+    $controllerName = 'App\\Controller\\' . $route['controller'];
+    $actionName = $route['action'];
+
+    $controller = new $controllerName();
+
+    if (!method_exists($controller, $actionName)) {
+        $this->handleError(500, "Action '{$actionName}' introuvable dans le contrôleur '{$controllerName}'.");
+        return;
+    }
+
+    $controller->$actionName();
+}
+
 
     private function handleError(int $code, string $message): void
     {

@@ -43,11 +43,16 @@ public function dashboard(): void
         return;
     }
 
+    $pageManager = new \App\Service\PageManager();
+    $pages = $pageManager->findAll();
+
     $this->renderPage('dashboard', 'backoffice', [
         'title' => 'Tableau de Bord',
+        'pages' => $pages,
         'user_id' => SessionManager::get('user_id')
     ]);
 }
+
 
 
 }

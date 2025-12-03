@@ -7,16 +7,8 @@
 <body>
     <h1>Inscription</h1>
 
-    <?php 
-    // Affichage des erreurs
-    if (!empty($errors) && is_array($errors)): 
-    ?>
-        <div style="color: red; border: 1px solid red; padding: 10px; margin-bottom: 15px;">
-            <?php foreach ($errors as $error): ?>
-                <p><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?></p>
-            <?php endforeach; ?>
-        </div>
-    <?php endif; ?>
+    
+   
 
     <form method="POST" action="/register">
         
